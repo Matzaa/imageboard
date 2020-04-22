@@ -1,0 +1,23 @@
+img {
+    width: 250px;
+    height: 180px;
+    padding: 3px 3px 0px;
+    object-fit: cover;
+    border: solid transparent 1px;
+    border-radius: 5px;
+}
+
+.card {
+    border: black 1px solid;
+    border-radius: 5px;
+}
+
+#main {
+    display: flex;
+    justify-content: space-around;
+}
+
+h4 {
+    margin: 2px;
+    padding-left: 3px;
+}
