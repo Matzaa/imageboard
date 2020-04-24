@@ -10,14 +10,38 @@ img {
 .card {
     border: black 1px solid;
     border-radius: 5px;
+    margin: 10px;
 }
 
-#main {
+.container {
     display: flex;
     justify-content: space-around;
+    flex-wrap: wrap;
 }
 
 h4 {
     margin: 2px;
     padding-left: 3px;
+}
+
+.fruit {
+    font-size: 100px;
+}
+
+.component {
+    background-color: cadetblue;
+    border: 1px solid cadetblue;
+    position: fixed;
+    border-radius: 10px;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: 20px;
+}
+
+#x {
+    position: absolute;
+    right: 0;
+    top: 0;
 }

@@ -13,6 +13,7 @@ module.exports.addData = (url, username, title, description) => {
         `
     INSERT INTO images (url, username, title, description)
     VALUES ($1, $2, $3, $4)
+    RETURNING id, url, username, title, description;
     `,
         [url, username, title, description]
     );

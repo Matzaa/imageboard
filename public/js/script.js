@@ -1,16 +1,51 @@
-// import { axios } from "aws-sdk";
-
 (function () {
+    Vue.component("first-component", {
+        template: "#template",
+        // props: ["postTitle", "id"],
+        props: ["id", "url", "title", "description", "username"],
+        mounted: function () {
+            console.log("url in mounted component ", this.url);
+            console.log("id in mounted of component", this.id);
+        },
+        data: function () {
+            return {
+                name: "Bob",
+                count: 0,
+                image: {},
+            };
+        },
+        methods: {
+            closeModal: function () {
+                console.log("Im emitting from the component");
+                this.$emit("close");
+            },
+        },
+    });
     new Vue({
         el: "#main",
         data: {
             // name: "msg",
             // seen: false,
+            showModal: null,
             cards: [],
             title: "",
             description: "",
             username: "",
             file: null,
+            fruits: [
+                {
+                    title: "🥝",
+                    id: 1,
+                },
+                {
+                    title: "🍓",
+                    id: 2,
+                },
+                {
+                    title: "🍋",
+                    id: 3,
+                },
+            ],
         },
         mounted: function () {
             console.log("my vue has MOUNTED");
@@ -24,14 +59,14 @@
             });
         },
         methods: {
-            myFunction: function () {
-                console.log("my function is running");
+            closeMe: function () {
+                console.log("Im parent I will close now, e", this);
+                this.showModal = null;
             },
-
             handleClick: function (e) {
                 e.preventDefault();
-                console.log("this", this);
-
+                console.log("this in handleclick", this);
+                var self = this;
                 var formData = new FormData();
                 formData.append("title", this.title);
                 formData.append("description", this.description);
@@ -41,6 +76,8 @@
                     .post("/upload", formData)
                     .then(function (resp) {
                         console.log("resp from POST/upload", resp);
+
+                        self.cards.unshift(resp.data.results.rows[0]);
                     })
                     .catch(function (err) {
                         console.log("err in POST upload", err);

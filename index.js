@@ -35,7 +35,8 @@ app.get("/cards", (req, res) => {
     db.getData()
         .then((results) => {
             console.log("results.rows", results.rows);
-            let cards = results.rows;
+            let resultsOrdered = results.rows;
+            let cards = resultsOrdered.reverse();
             res.json(cards);
         })
         .catch((err) => {
@@ -53,8 +54,10 @@ app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
             req.body.username,
             req.body.title,
             req.body.description
-        );
-        res.json({ success: true });
+        ).then((results) => {
+            console.log("POST results", results);
+            res.json({ results });
+        });
     } else {
         res.json({ success: false });
     }
