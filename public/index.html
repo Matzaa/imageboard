@@ -22,7 +22,7 @@
         <first-component 
             v-if="showModal" 
             post-title='hello' 
-            :id="selectedFruit"
+            :id="showModal"
             @close="closeMe"
         ></first-component>
         
@@ -45,7 +45,7 @@
 
         <div class="container">
         <div class="card" v-for='card in cards'>
-            <img @click="showModal=true" v-bind:src='card.url'>
+            <img @click="showModal=card.id" v-bind:src='card.url'>
             <h4>{{card.title}}</h4>
         </div>
         </div>
@@ -57,8 +57,10 @@
         <div class='component' > 
             <h1 @click="closeModal" id='x'>X</h1>
             <h2>Hello {{name}} !</h2>
+            <img v-bind:src="url" >
+            <h2> {{description}} !!!!</h2>
             <button @click="count++" >Click me!</button>
-            <h3>count: {{count}} </h3>
+            <!-- <h3>count: {{count}} </h3> -->
         </div>
     </script>
 

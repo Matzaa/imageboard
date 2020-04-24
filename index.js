@@ -32,9 +32,9 @@ const uploader = multer({
 
 app.get("/cards", (req, res) => {
     console.log("/cards route has been hit");
-    db.getData()
+    db.getAllData()
         .then((results) => {
-            console.log("results.rows", results.rows);
+            // console.log("results.rows", results.rows);
             let resultsOrdered = results.rows;
             let cards = resultsOrdered.reverse();
             res.json(cards);
@@ -61,6 +61,18 @@ app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
     } else {
         res.json({ success: false });
     }
+});
+
+app.post("/getImage/:id", (req, res) => {
+    console.log("req.params", req.params);
+    db.getDataForModal(req.params.id)
+        .then((results) => {
+            console.log("res from db query in modal post", results.rows[0]);
+            res.json(results.rows[0]);
+        })
+        .catch((err) => {
+            console.log("err in POST getImage", err);
+        });
 });
 
 app.listen(8080, () => console.log("IB server is listening"));

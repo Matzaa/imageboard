@@ -2,16 +2,30 @@
     Vue.component("first-component", {
         template: "#template",
         // props: ["postTitle", "id"],
-        props: ["id", "url", "title", "description", "username"],
+        props: ["id"],
         mounted: function () {
-            console.log("url in mounted component ", this.url);
+            console.log("this in mounted component ", this);
             console.log("id in mounted of component", this.id);
+            var self = this;
+            axios
+                .post("/getImage/" + this.id)
+                .then(function (response) {
+                    console.log("res inside component axios", response);
+
+                    self.url = response.data.url;
+                    self.description = response.data.description;
+                })
+                .catch(function (err) {
+                    console.log("err in component POST axios", err);
+                });
         },
         data: function () {
             return {
-                name: "Bob",
-                count: 0,
-                image: {},
+                // name: "Bob",
+                // count: 0,
+                // image: {},
+                description: "",
+                url: "",
             };
         },
         methods: {
@@ -53,9 +67,9 @@
             var self = this;
             axios.get("/cards").then(function (response) {
                 // console.log("response from /cities", response.data);
-                console.log("this INSIDE axios", self);
+                console.log("response inside instance axios", response);
                 self.cards = response.data;
-                console.log("self", self);
+                console.log("this/self inside axios", self);
             });
         },
         methods: {

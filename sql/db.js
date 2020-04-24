@@ -4,7 +4,15 @@ const db = spicedPg(
         "postgres:postgres:postgres@localhost:5432/imageboard"
 );
 
-module.exports.getData = () => {
+module.exports.getDataForModal = (id) => {
+    return db.query(
+        `
+    SELECT * FROM images WHERE id = $1;`,
+        [id]
+    );
+};
+
+module.exports.getAllData = () => {
     return db.query(`SELECT * FROM images`);
 };
 
