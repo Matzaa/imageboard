@@ -11,27 +11,58 @@
                 .post("/getImage/" + this.id)
                 .then(function (response) {
                     console.log("res inside component axios", response);
-
+                    self.username = response.data.username;
+                    self.title = response.data.title;
                     self.url = response.data.url;
                     self.description = response.data.description;
                 })
                 .catch(function (err) {
                     console.log("err in component POST axios", err);
                 });
+            axios
+                .post("/getComments/" + this.id)
+                .then(function (response) {
+                    console.log("response inside comments axios", response);
+                    self.comments = response.data;
+                })
+                .catch(function (err) {
+                    console.log("err in axios comments", err);
+                });
         },
         data: function () {
             return {
-                // name: "Bob",
-                // count: 0,
-                // image: {},
                 description: "",
                 url: "",
+                username: "",
+                title: "",
+                comments: [],
+                comment: "",
+                commenter: "",
             };
         },
         methods: {
             closeModal: function () {
                 console.log("Im emitting from the component");
                 this.$emit("close");
+            },
+            addComment: function (e) {
+                e.preventDefault();
+                console.log("I want to add a comment");
+                var self = this;
+                console.log("this inside addCommetn method", this);
+                let newComment = {
+                    comment: this.comment,
+                    commenter: this.commenter,
+                };
+                axios
+                    .post("postComment/" + this.id, newComment)
+                    .then(function (resp) {
+                        console.log("resp in addcomment podst", resp);
+                        self.comments.unshift(resp.data.rows[0]);
+                    })
+                    .catch(function (err) {
+                        console.log("err in postComment", err);
+                    });
             },
         },
     });
@@ -46,20 +77,6 @@
             description: "",
             username: "",
             file: null,
-            fruits: [
-                {
-                    title: "🥝",
-                    id: 1,
-                },
-                {
-                    title: "🍓",
-                    id: 2,
-                },
-                {
-                    title: "🍋",
-                    id: 3,
-                },
-            ],
         },
         mounted: function () {
             console.log("my vue has MOUNTED");

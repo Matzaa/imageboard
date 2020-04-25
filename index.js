@@ -4,9 +4,12 @@ const db = require("./sql/db");
 const s3 = require("./s3");
 const config = require("./config.json");
 
+app.use(express.json());
 app.use(express.static("public"));
 
-//------------- image upload boilerplate -------------------
+//------------------------------------------------------------------
+//--------------------- image upload boilerplate -------------------
+//------------------------------------------------------------------
 const multer = require("multer");
 const uidSafe = require("uid-safe");
 const path = require("path");
@@ -28,8 +31,8 @@ const uploader = multer({
         fileSize: 2097152,
     },
 });
-//----------------------------------------------------------
 
+//-------------------- loading all --------------------------------
 app.get("/cards", (req, res) => {
     console.log("/cards route has been hit");
     db.getAllData()
@@ -44,6 +47,7 @@ app.get("/cards", (req, res) => {
         });
 });
 
+//---------------- upload new pic on submit button ---------------
 app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
     console.log("req.file", req.file); //file we just uploaded
     console.log("input", req.body); //input fields from the client
@@ -63,15 +67,40 @@ app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
     }
 });
 
+//----------------- modal -------------------------------------------
 app.post("/getImage/:id", (req, res) => {
     console.log("req.params", req.params);
-    db.getDataForModal(req.params.id)
+    db.getImage(req.params.id)
         .then((results) => {
-            console.log("res from db query in modal post", results.rows[0]);
+            console.log("res from db query in modal post", results);
             res.json(results.rows[0]);
         })
         .catch((err) => {
             console.log("err in POST getImage", err);
+        });
+});
+
+app.post("/getComments/:id", (req, res) => {
+    db.getComments(req.params.id)
+        .then((results) => {
+            console.log("results.rows in getcomments", results.rows);
+            res.json(results.rows);
+        })
+        .catch((err) => {
+            console.log("err in getComments POST", err);
+        });
+});
+
+//-------------------- adding comments -----------------------------
+app.post("/postComment/:id", (req, res) => {
+    console.log("req.body", req.body);
+    console.log("req.params on Pcomment", req.params);
+    db.addComment(req.body.comment, req.body.commenter, req.params.id)
+        .then((results) => {
+            res.json(results);
+        })
+        .catch((err) => {
+            console.log("err in postComment", err);
         });
 });
 

@@ -9,6 +9,13 @@ CREATE TABLE images(
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+CREATE TABLE comments(
+    comment VARCHAR NOT NULL,
+    username VARCHAR NOT NULL,
+    image_id INTEGER NOT NULL REFERENCES images(id),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
 INSERT INTO images (url, username, title, description) VALUES (
     'https://s3.amazonaws.com/spicedling/jAVZmnxnZ-U95ap2-PLliFFF7TO0KqZm.jpg',
     'funkychicken',
@@ -29,3 +36,24 @@ INSERT INTO images (url, username, title, description) VALUES (
     'To be or not to be',
     'That is the question.'
 );
+
+INSERT INTO comments (comment, username, image_id) VALUES (
+    'that is so cool',
+    'Coolman',
+    2
+
+);
+
+INSERT INTO comments (comment, username, image_id) VALUES (
+    'I think so too',
+    'CoolDude',
+    2
+
+)
+
+INSERT INTO comments (comment, username, image_id) VALUES (
+    'Wow wow wow wow',
+    'CoolDude',
+    3
+
+)
