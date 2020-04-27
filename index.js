@@ -37,13 +37,23 @@ app.get("/cards", (req, res) => {
     console.log("/cards route has been hit");
     db.getAllData()
         .then((results) => {
-            // console.log("results.rows", results.rows);
-            let resultsOrdered = results.rows;
-            let cards = resultsOrdered.reverse();
-            res.json(cards);
+            res.json(results.rows);
         })
         .catch((err) => {
             console.log("err in GET", err);
+        });
+});
+
+app.post("/more/:lastId", (req, res) => {
+    console.log("req", req.params);
+    var startId = req.params.lastId;
+    db.getMoreImages(startId)
+        .then((results) => {
+            console.log("results in get more pix", results);
+            res.json(results);
+        })
+        .catch((err) => {
+            console.log("err in getMoreImages", err);
         });
 });
 
@@ -60,7 +70,7 @@ app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
             req.body.description
         ).then((results) => {
             console.log("POST results", results);
-            res.json({ results });
+            res.json(results);
         });
     } else {
         res.json({ success: false });

@@ -90,6 +90,23 @@
             });
         },
         methods: {
+            loadMore: function (e) {
+                e.preventDefault();
+                var num = this.cards.length - 1;
+                console.log("this.cards.length.id", this.cards[num]);
+                var self = this;
+                let lastId = this.cards[num].id;
+                axios
+                    .post("/more/" + lastId)
+                    .then(function (resp) {
+                        console.log("resp in loadMore", ...resp.data);
+                        self.cards.push(...resp.data);
+                        console.log("self.cards in getmore", self.cards);
+                    })
+                    .catch(function (err) {
+                        "err in gettin more images", err;
+                    });
+            },
             closeMe: function () {
                 console.log("Im parent I will close now, e", this);
                 this.showModal = null;

@@ -5,36 +5,16 @@
     <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
-    <h1>My Imageboard Magic</h1>
+    <p>My Imageboard Magic</p>
 
     <div id="main">
-        <!-- <h2>Hi {{name}} !</h2>
-        <h2>2*2 = {{2*2}} </h2>
-        <h2>Name capitalized: {{name.toUpperCase()}} </h2>
-        <h2 v-if='seen'>You can see me</h2>
-        <h2 v-else> 'seen' is falsey</h2>
-        Cities:
-        <ul>
-            <li v-for='city in cities' @click='myFunction'>
-                {{city.name}}, {{city.country}}
-            </li>
-        </ul> -->
         <first-component 
             v-if="showModal" 
-            post-title='hello' 
             :id="showModal"
             @close="closeMe"
         ></first-component>
         
-        <!-- <p 
-            class="fruit" 
-            @click="showModal = fruit.id" 
-            v-for="fruit in fruits" 
-            v-if="fruits.length"
-        >{{fruit.title}}</p> -->
-
-
-        <form>
+        <form id="post">
             <input v-model='title' type="text" name='title' placeholder="title">
             <input v-model='description' type="text" name="description" placeholder="description">
             <input v-model='username' type="text" name="username" placeholder="username">
@@ -48,6 +28,7 @@
             <h4>{{card.title}}</h4>
         </div>
         </div>
+        <button @click='loadMore'>more</button>
         
     </div>
 

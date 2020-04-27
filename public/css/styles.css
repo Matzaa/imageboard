@@ -7,6 +7,16 @@ img {
     border-radius: 5px;
 }
 
+p {
+    margin: 10px;
+}
+
+#post {
+    margin: 10px;
+    border: chocolate 2p solid;
+    border-radius: 10px;
+}
+
 .card {
     border: black 1px solid;
     border-radius: 5px;
