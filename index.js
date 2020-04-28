@@ -82,7 +82,10 @@ app.post("/getImage/:id", (req, res) => {
     console.log("req.params", req.params);
     db.getImage(req.params.id)
         .then((results) => {
-            console.log("res from db query in modal post", results);
+            console.log(
+                "res.rows[0] from db query in modal post",
+                results.rows[0]
+            );
             res.json(results.rows[0]);
         })
         .catch((err) => {

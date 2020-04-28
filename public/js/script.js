@@ -1,33 +1,9 @@
 (function () {
     Vue.component("first-component", {
         template: "#template",
-        // props: ["postTitle", "id"],
         props: ["id"],
         mounted: function () {
-            console.log("this in mounted component ", this);
-            console.log("id in mounted of component", this.id);
-            var self = this;
-            axios
-                .post("/getImage/" + this.id)
-                .then(function (response) {
-                    console.log("res inside component axios", response);
-                    self.username = response.data.username;
-                    self.title = response.data.title;
-                    self.url = response.data.url;
-                    self.description = response.data.description;
-                })
-                .catch(function (err) {
-                    console.log("err in component POST axios", err);
-                });
-            axios
-                .post("/getComments/" + this.id)
-                .then(function (response) {
-                    console.log("response inside comments axios", response);
-                    self.comments = response.data;
-                })
-                .catch(function (err) {
-                    console.log("err in axios comments", err);
-                });
+            this.modal();
         },
         data: function () {
             return {
@@ -40,14 +16,39 @@
                 commenter: "",
             };
         },
+        watch: {
+            id: function () {
+                this.modal();
+            },
+        },
         methods: {
+            modal: function () {
+                var self = this;
+                axios
+                    .post("/getImage/" + this.id)
+                    .then(function (response) {
+                        self.username = response.data.username;
+                        self.title = response.data.title;
+                        self.url = response.data.url;
+                        self.description = response.data.description;
+                    })
+                    .catch(function (err) {
+                        console.log("err in component POST axios", err);
+                    });
+                axios
+                    .post("/getComments/" + this.id)
+                    .then(function (response) {
+                        self.comments = response.data;
+                    })
+                    .catch(function (err) {
+                        console.log("err in axios comments", err);
+                    });
+            },
             closeModal: function () {
-                console.log("Im emitting from the component");
                 this.$emit("close");
             },
             addComment: function (e) {
                 e.preventDefault();
-                console.log("I want to add a comment");
                 var self = this;
                 console.log("this inside addCommetn method", this);
                 let newComment = {
@@ -66,12 +67,11 @@
             },
         },
     });
+
     new Vue({
         el: "#main",
         data: {
-            // name: "msg",
-            // seen: false,
-            showModal: null,
+            showModal: location.hash.slice(1),
             cards: [],
             title: "",
             description: "",
@@ -80,15 +80,17 @@
         },
         mounted: function () {
             console.log("my vue has MOUNTED");
-            console.log("this outside axios", this);
             var self = this;
             axios.get("/cards").then(function (response) {
-                // console.log("response from /cities", response.data);
-                console.log("response inside instance axios", response);
                 self.cards = response.data;
-                console.log("this/self inside axios", self);
+            });
+            window.addEventListener("hashchange", function () {
+                console.log("hash change fired!!!");
+                console.log("location.hash", location.hash);
+                self.showModal = location.hash.slice(1);
             });
         },
+
         methods: {
             loadMore: function (e) {
                 e.preventDefault();
@@ -108,8 +110,8 @@
                     });
             },
             closeMe: function () {
-                console.log("Im parent I will close now, e", this);
                 this.showModal = null;
+                location.hash = "";
             },
             handleClick: function (e) {
                 e.preventDefault();

@@ -3,9 +3,10 @@
 <head>
     <title>My Imageboard</title>
     <link rel="stylesheet" href="/css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&family=Quicksand:wght@700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <p>My Imageboard Magic</p>
+    <p>pretty things</p>
 
     <div id="main">
         <first-component 
@@ -14,42 +15,55 @@
             @close="closeMe"
         ></first-component>
         
-        <form id="post">
-            <input v-model='title' type="text" name='title' placeholder="title">
-            <input v-model='description' type="text" name="description" placeholder="description">
-            <input v-model='username' type="text" name="username" placeholder="username">
-            <input @change='handleChange' type="file" name="file" accept="image/*">
-            <button @click='handleClick'>submit</button>
+        <form id="postForm">
+            <div class="post">
+                <h3>post a pretty thing!</h3>
+                <div>
+                    <input v-model='title' type="text" name='title' placeholder="title">
+                    <input v-model='description' type="text" name="description" placeholder="description">
+                    <input v-model='username' type="text" name="username" placeholder="username">
+                </div>
+                <div>
+                    <input @change='handleChange' type="file" name="file" accept="image/*" class="inputfile">
+                    <button @click='handleClick'>submit</button>
+                </div>
+            </div>
         </form>
 
-        <div class="container">
-        <div class="card" v-for='card in cards'>
-            <img @click="showModal=card.id" v-bind:src='card.url'>
-            <h4>{{card.title}}</h4>
+        <div id="containerOfContainer">
+            <div class="container">
+                <div class="card" v-for='card in cards'>
+                    <a :href="'#' + card.id">
+                        <img v-bind:src='card.url'>
+                        <h4>{{card.title}}</h4>
+                    </a>
+                </div>
+            </div>
         </div>
-        </div>
-        <button @click='loadMore'>more</button>
-        
+    
+        <button id="more-button" @click='loadMore'>more</button>
     </div>
 
     <!-- we can return only one element from the script tag -->
     <script type='text/x-template' id='template'>
-        <div class='component' > 
-            <h1 @click="closeModal" id='x'>X</h1>
-            <img v-bind:src="url" >
-            <h2> {{description}} !!!!</h2>
-            <h3>{{title}} </h3>
-            <div class="comment" v-for='comment in comments'>
-                <h2>{{comment.comment}}</h2>
-                <h3>says {{comment.username}}</h3>
-                <h5>at {{comment.created_at}} </h5>
-            </div>
-            <form>
-                 <h2>Say something about this!</h2>
-                <input v-model='comment' type="text" name='comment' placeholder="comment">
-                <input v-model='commenter' type="text" name="commenter" placeholder="your username">
-                <button @click='addComment'>post</button>
-            </form>
+        <div id="modal">   
+            <div class='component'>             
+                <h1 @click="closeModal" id='x'>x</h1>
+                <img v-bind:src="url" >
+                <h2> {{description}} !!!!</h2>
+                <h3>{{title}} </h3>
+                <div class="comment" v-for='comment in comments'>
+                    <h2>{{comment.comment}}</h2>
+                    <h3>says {{comment.username}}</h3>
+                    <h5>at {{comment.created_at}} </h5>
+                </div>
+                <form>
+                    <h2>Say something about this!</h2>
+                    <input v-model='comment' type="text" name='comment' placeholder="comment">
+                    <input v-model='commenter' type="text" name="commenter" placeholder="your username">
+                    <button @click='addComment'>post</button>
+                </form>
+            </div>    
         </div>
     </script>
 

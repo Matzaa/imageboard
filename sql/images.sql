@@ -51,9 +51,5 @@ INSERT INTO comments (comment, username, image_id) VALUES (
 
 )
 
-INSERT INTO comments (comment, username, image_id) VALUES (
-    'Wow wow wow wow',
-    'CoolDude',
-    3
 
-)
+
