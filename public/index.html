@@ -6,7 +6,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&family=Quicksand:wght@700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <p>pretty things</p>
+    <p>pretty red things</p>
 
     <div id="main">
         <first-component 
@@ -42,6 +42,8 @@
         </div>
     
         <button id="more-button" @click='loadMore'>more</button>
+        <h4 id="nomore">you've reached the end</h4>
+
     </div>
 
     <!-- we can return only one element from the script tag -->
@@ -49,18 +51,23 @@
         <div id="modal">   
             <div class='component'>             
                 <h1 @click="closeModal" id='x'>x</h1>
-                <img v-bind:src="url" >
-                <h2> {{description}} !!!!</h2>
-                <h3>{{title}} </h3>
+                <div id="arrows">
+                    <!-- <h1 id="left-arrow"> < </h1> -->
+                    <img v-bind:src="url" >
+                    <!-- <h1 id="right-arrow"> > </h1> -->
+                </div>
+                <h2> {{title}}</h2>
+                <h3>{{description}} </h3>
                 <div class="comment" v-for='comment in comments'>
                     <h2>{{comment.comment}}</h2>
-                    <h3>says {{comment.username}}</h3>
-                    <h5>at {{comment.created_at}} </h5>
+                    <h3>says {{comment.username}} at {{comment.created_at}}</h3>
                 </div>
-                <form>
+                <form id="commentForm">
                     <h2>Say something about this!</h2>
-                    <input v-model='comment' type="text" name='comment' placeholder="comment">
-                    <input v-model='commenter' type="text" name="commenter" placeholder="your username">
+                    <div>
+                        <input v-model='comment' type="text" name='comment' placeholder="comment">
+                        <input v-model='commenter' type="text" name="commenter" placeholder="your username">
+                    </div>
                     <button @click='addComment'>post</button>
                 </form>
             </div>    

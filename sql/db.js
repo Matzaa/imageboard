@@ -10,7 +10,7 @@ module.exports.getAllData = () => {
     SELECT * 
     FROM images
     ORDER BY id DESC
-    LIMIT 6;`);
+    LIMIT 9;`);
 };
 
 module.exports.getMoreImages = (startId) => {

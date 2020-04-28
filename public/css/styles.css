@@ -16,13 +16,13 @@ body {
 /* ============ POST A PRETTY THING ============ */
 .post {
     margin: 20px;
-    border: chocolate 2p solid;
     border-radius: 10px;
-    background-color: rgba(0, 0, 0, 0.4);
+    border: black 1px solid;
+    border-radius: 5px;
     padding: 20px;
     display: flex;
     flex-direction: column;
-    width: 400px;
+    width: 823px;
     height: 100px;
 }
 
@@ -36,7 +36,18 @@ input[type="text"] {
 }
 
 input[type="file"] {
-    background-color: transparent;
+    margin-top: 23px;
+}
+
+.post input[type="text"] {
+    width: 232px;
+    margin: 0px 19px 0px 0px;
+}
+
+.post button {
+    float: right;
+    margin-right: 21px;
+    padding: 5px 86px 5px 50px;
 }
 
 /* ================= MAIN PAGE ================= */
@@ -100,8 +111,8 @@ img {
 }
 .component img {
     width: 350px;
-    height: 252px;
-    border: 10px solid rgba(0, 0, 0, 0.6);
+    height: auto;
+    border: 10px solid rgba(200, 200, 200, 0.2);
     border-radius: 10px;
     padding: 0;
     margin-top: 30px;
@@ -117,16 +128,47 @@ img {
     cursor: pointer;
 }
 
+.comment {
+    background-color: rgba(0, 0, 0, 0.3);
+    padding: 8px 20px 20px 20px;
+    width: 330px;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+.component form {
+    background-color: rgba(200, 200, 200, 0.2);
+    padding: 8px 20px 20px 20px;
+    width: 330px;
+    border-radius: 10px;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#arrows {
+    display: flex;
+    align-items: center;
+}
+
+#left-arrow {
+    margin-right: 30px;
+}
+
+#right-arrow {
+    margin-left: 30px;
+}
 /* ================ ALL TEXT ==================== */
 
 p {
     margin: 40px;
     font-family: "Quicksand", sans-serif;
-    letter-spacing: 19px;
-    font-size: 34px;
+    letter-spacing: 35px;
+    font-size: 37px;
     text-align: center;
     position: relative;
-    left: 10px;
+    left: 14px;
 }
 
 h1 {
@@ -136,6 +178,7 @@ h1 {
 h2,
 h5 {
     font-family: "Open Sans", sans-serif;
+    margin: 5px 0px 0px 0px;
 }
 
 h3 {
@@ -180,4 +223,9 @@ button:hover {
 
 #more-button {
     margin-bottom: 20px;
+}
+
+#nomore {
+    display: none;
+    margin: 15px;
 }

@@ -49,6 +49,7 @@
             },
             addComment: function (e) {
                 e.preventDefault();
+                document.getElementById("commentForm").reset();
                 var self = this;
                 console.log("this inside addCommetn method", this);
                 let newComment = {
@@ -64,6 +65,8 @@
                     .catch(function (err) {
                         console.log("err in postComment", err);
                     });
+                this.comment = "";
+                this.commenter = "";
             },
         },
     });
@@ -101,9 +104,17 @@
                 axios
                     .post("/more/" + lastId)
                     .then(function (resp) {
-                        console.log("resp in loadMore", ...resp.data);
-                        self.cards.push(...resp.data);
-                        console.log("self.cards in getmore", self.cards);
+                        if (resp.data.length < 1) {
+                            document.getElementById(
+                                "more-button"
+                            ).style.display = "none";
+                            document.getElementById("nomore").style.display =
+                                "block";
+                        } else {
+                            console.log("resp in loadMore", ...resp.data);
+                            self.cards.push(...resp.data);
+                            console.log("self.cards in getmore", self.cards);
+                        }
                     })
                     .catch(function (err) {
                         "err in gettin more images", err;
@@ -127,11 +138,16 @@
                     .then(function (resp) {
                         console.log("resp from POST/upload", resp);
 
-                        self.cards.unshift(resp.data.results.rows[0]);
+                        self.cards.unshift(resp.data.rows[0]);
                     })
                     .catch(function (err) {
                         console.log("err in POST upload", err);
                     });
+                document.getElementById("postForm").reset();
+                this.title = "";
+                this.description = "";
+                this.username = "";
+                this.file = null;
             },
             handleChange: function (e) {
                 console.log("handlechange is good");
