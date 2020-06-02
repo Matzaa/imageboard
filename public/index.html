@@ -24,7 +24,8 @@
                     <input v-model='username' type="text" name="username" placeholder="username">
                 </div>
                 <div>
-                    <input @change='handleChange' type="file" name="file" accept="image/*" class="inputfile">
+                    <input @change='handleChange' type="file" name="file" accept="image/*" class="inputfile" id="file">
+                    <label for="file">choose a file</label>
                     <button @click='handleClick'>submit</button>
                 </div>
             </div>

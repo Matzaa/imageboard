@@ -35,8 +35,40 @@ input[type="text"] {
     margin-bottom: 5px;
 }
 
-input[type="file"] {
-    margin-top: 23px;
+.inputfile {
+    /* margin-top: 23px; */
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
+.inputfile + label {
+    margin-top: 30px;
+    padding: 0.5em 3em;
+    margin-top: 20px;
+    border: 1px solid;
+    border-color: rgb(216, 216, 216) rgb(209, 209, 209) rgb(186, 186, 186);
+    background-color: transparent;
+    font-family: "Open Sans", sans-serif;
+    font-size: 11px;
+    width: 100px;
+    cursor: pointer;
+    top: 25px;
+    position: relative;
+    text-transform: uppercase;
+}
+
+.inputfile:focus + label {
+    outline: 1px dotted #000;
+    outline: -webkit-focus-ring-color auto 5px;
+}
+
+label:hover {
+    color: #dddddd;
+    border-color: #dddddd;
 }
 
 .post input[type="text"] {
