@@ -79,7 +79,7 @@ label:hover {
 .post button {
     float: right;
     margin-right: 21px;
-    padding: 5px 86px 5px 50px;
+    padding: 5px 86px 5px 43px;
 }
 
 /* ================= MAIN PAGE ================= */
@@ -255,6 +255,7 @@ button:hover {
 
 #more-button {
     margin-bottom: 20px;
+    padding: 10px;
 }
 
 #nomore {
